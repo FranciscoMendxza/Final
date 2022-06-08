@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DatosDTO;
-
 /**
  *
  * @author panch
@@ -68,9 +67,12 @@ public class Datos {
     }
     
     
-
-    
+    public String [] getArray(){
+        String[] datos = {nombre, String.valueOf(telefono), direccion, String.valueOf(celular), String.valueOf(id)};
+         return datos;
     }
+    
+}
     
     
 
