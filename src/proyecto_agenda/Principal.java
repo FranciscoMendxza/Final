@@ -16,10 +16,22 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import static java.lang.System.out;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.helpers.BaseRowColShifter;
 /**
  *
  * @author panch
@@ -103,6 +115,7 @@ public class Principal extends javax.swing.JFrame {
         lbl2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         btncsv = new javax.swing.JButton();
+        btnexcel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agenda");
@@ -219,6 +232,13 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btnexcel.setText("Generar Excel");
+        btnexcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexcelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -234,6 +254,8 @@ public class Principal extends javax.swing.JFrame {
                                 .addGap(43, 43, 43)
                                 .addComponent(btngrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnexcel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btneditar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(44, 44, 44)
                                 .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +280,7 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(txtdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
@@ -273,24 +295,24 @@ public class Principal extends javax.swing.JFrame {
                                     .addComponent(lbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(258, 258, 258)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(200, 200, 200))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(59, 59, 59)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtcelular, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -322,7 +344,8 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btncancelar)
                     .addComponent(btngrabar)
                     .addComponent(btneliminar)
-                    .addComponent(btncsv))
+                    .addComponent(btncsv)
+                    .addComponent(btnexcel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -502,6 +525,72 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btncsvActionPerformed
 
+    private void btnexcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcelActionPerformed
+        // TODO add your handling code here:
+        
+        //Workbook wb = new HSSFWorkbook();
+        /**try (OutputStream fileOut = new FileOutputStream ("datosPakon.xls")){
+            Sheet sheet1 = wb.createSheet("Hoja 1");           
+            Row row = sheet1.createRow(0);
+            
+            row.createCell(0).setCellValue("ID");
+            row.createCell(1).setCellValue("Nombre");
+            row.createCell(2).setCellValue("Telefono");
+            row.createCell(3).setCellValue("Domicilio");
+            row.createCell(4).setCellValue("Celular");
+            
+            
+
+            
+            for(Datos datos : listaDatos){
+                
+                row = sheet1.createRow(datos.getId());
+                row.createCell(0).setCellValue(datos.getId());
+                row.createCell(1).setCellValue(datos.getNombre());
+                row.createCell(2).setCellValue(datos.getTelefono());
+                row.createCell(3).setCellValue(datos.getDireccion());
+                row.createCell(4).setCellValue(datos.getCelular());
+                wb.write(fileOut);
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        * 
+        * **/
+        
+        try {
+            Workbook wb = new HSSFWorkbook();
+            Sheet sheet = wb.createSheet("Hoja 1");
+            Row row = sheet.createRow(0);
+            
+            for(int i = 0; i < mimodelo.getColumnCount(); i++){
+                Cell cell = row.createCell(i);
+                cell.setCellValue(mimodelo.getColumnName(i));
+            }
+            
+            for(int j = 0; j < mimodelo.getRowCount(); j++){
+                row = sheet.createRow(j+1);
+                for(int k = 0; k < mimodelo.getColumnCount(); k++){
+                    Cell cell = row.createCell(k);
+                    if(mimodelo.getValueAt(j, k) != null){
+                        cell.setCellValue(mimodelo.getValueAt(j, k).toString());
+                    }
+                }
+            }
+            
+            FileOutputStream out = new FileOutputStream(new File("datosPakon.xls"));
+            wb.write(out);
+            wb.close();
+            out.close();
+            
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }catch(IOException io){
+            System.out.println(io);
+        }
+    }//GEN-LAST:event_btnexcelActionPerformed
+
     
     
     private void cargar(){
@@ -582,6 +671,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btncsv;
     private javax.swing.JButton btneditar;
     private javax.swing.JButton btneliminar;
+    private javax.swing.JButton btnexcel;
     private javax.swing.JButton btngrabar;
     private javax.swing.JButton btnnuevo;
     private javax.swing.JLabel jLabel1;
