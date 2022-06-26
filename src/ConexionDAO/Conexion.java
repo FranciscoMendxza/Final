@@ -27,8 +27,8 @@ public class Conexion {
     public void conecta(){
         
         String user="root";
-        String password="12345";
-        String url="jdbc:mysql://localhost:3306/agenda?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String password="";
+        String url="jdbc:mysql://localhost:3306/nominas?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         try{
            Class.forName("com.mysql.cj.jdbc.Driver");
            conexion = DriverManager.getConnection(url,user,password);
@@ -50,11 +50,12 @@ public class Conexion {
         
         try{
             conecta();
-            PreparedStatement ps = conexion.prepareStatement("insert into datos (nombre, telefono, direccion, celular) values (?, ?, ?, ?)");
+            PreparedStatement ps = conexion.prepareStatement("insert into datos (nombre, categoria, ocupacion, salario, bono) values (?, ?, ?, ?, ?)");
             ps.setString(1, datos.getNombre());
-            ps.setInt(2, datos.getTelefono());
-            ps.setString(3, datos.getDireccion());
-            ps.setInt(4, datos.getCelular());
+            ps.setString(2, datos.getCategoria());
+            ps.setString(3, datos.getOcupacion());
+            ps.setInt(4, datos.getSalario());
+            ps.setInt(5, datos.getBono());
             
             ps.execute();
             
@@ -78,7 +79,7 @@ public class Conexion {
             Datos datos;
             
             while(rs.next()){
-                datos = new Datos(rs.getString("nombre"),rs.getInt("telefono"), rs.getString("direccion"), rs.getInt("celular"), rs.getInt("id"));
+                datos = new Datos(rs.getString("nombre"),rs.getString("categoria"), rs.getString("ocupacion"), rs.getInt("salario"), rs.getInt("bono"),rs.getInt("matricula"));
                 //datos.setNombre(rs.getString("nombre"));
                 listaDatos.add(datos);
             }
@@ -98,14 +99,15 @@ public class Conexion {
         
         try{
             conecta();
-            PreparedStatement ps = conexion.prepareCall("update datos set nombre = ?, telefono = ?, direccion = ?, celular = ? where id = ?");
+            PreparedStatement ps = conexion.prepareCall("update datos set nombre = ?, categoria = ?, ocupacion = ?, salario = ?, bono = ? where matricula = ?");
             
             ps.setString(1, datos.getNombre());
-            ps.setInt(2, datos.getTelefono());
-            ps.setString(3, datos.getDireccion());
-            ps.setInt(4, datos.getCelular());
+            ps.setString(2, datos.getCategoria());
+            ps.setString(3, datos.getOcupacion());
+            ps.setInt(4, datos.getSalario());
+            ps.setInt(5, datos.getBono());
             
-            ps.setInt(5, datos.getId());
+            ps.setInt(6, datos.getMatricula());
             
             ps.executeUpdate();
             
@@ -123,7 +125,7 @@ public class Conexion {
         boolean estado = true;
         try{
             conecta();
-            PreparedStatement ps = conexion.prepareStatement("delete from Datos where id = ?");
+            PreparedStatement ps = conexion.prepareStatement("delete from Datos where matricula = ?");
             ps.setInt(1, id);
             ps.execute();            
         }catch(SQLException ex){

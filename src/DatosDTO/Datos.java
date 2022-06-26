@@ -10,20 +10,23 @@ package DatosDTO;
 public class Datos {
     
     String nombre;
-    int telefono;
-    String direccion;
-    int celular;
-    int id;
+    String categoria;
+    String ocupacion;
+    int salario;
+    int bono;
+    
+    int matricula;
 
     public Datos() {
     }
 
-    public Datos(String nombre, int telefono, String direccion, int celular, int id) {
+    public Datos(String nombre, String categoria, String ocupacion, int salario, int bono, int matricula) {
         this.nombre = nombre;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.celular = celular;
-        this.id = id;
+        this.categoria = categoria;
+        this.ocupacion = ocupacion;
+        this.salario = salario;
+        this.bono = bono;
+        this.matricula = matricula;
     }
 
     public String getNombre() {
@@ -34,41 +37,51 @@ public class Datos {
         this.nombre = nombre;
     }
 
-    public int getTelefono() {
-        return telefono;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getOcupacion() {
+        return ocupacion;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setOcupacion(String ocupacion) {
+        this.ocupacion = ocupacion;
     }
 
-    public int getCelular() {
-        return celular;
+    public int getSalario() {
+        return salario;
     }
 
-    public void setCelular(int celular) {
-        this.celular = celular;
+    public void setSalario(int salario) {
+        this.salario = salario;
     }
 
-    public int getId() {
-        return id;
+    public int getBono() {
+        return bono;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBono(int bono) {
+        this.bono = bono;
     }
+
+    public int getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
+    }
+    
+    
     
     
     public String [] getArray(){
-        String[] datos = {nombre, String.valueOf(telefono), direccion, String.valueOf(celular), String.valueOf(id)};
+        String[] datos = {nombre, categoria, ocupacion, String.valueOf(salario), String.valueOf(bono), String.valueOf(matricula)};
          return datos;
     }
     
