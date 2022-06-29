@@ -36,7 +36,7 @@ public class Entrada2 extends javax.swing.JFrame {
         if (conexion.consultartodos()){
             listaDatos = conexion.getListaDatos();
             for(Datos datos : listaDatos){
-               model.addRow(new Object[]{String.valueOf(datos.getMatricula()),datos.getNombre(), datos.getCategoria(), datos.getOcupacion(),String.valueOf(datos.getSalario()),String.valueOf(datos.getBono())});
+               model.addRow(new Object[]{String.valueOf(datos.getMatricula()),datos.getNombre()});
             }
             table.setModel(model);
         } else {
@@ -64,10 +64,7 @@ public class Entrada2 extends javax.swing.JFrame {
         for(Datos datos : listaDatos){
             filatabla [0]= datos.getMatricula();
             filatabla [1]= datos.getNombre();
-            filatabla [2]= datos.getCategoria();
-            filatabla [3]= datos.getOcupacion();
-            filatabla [4]= datos.getSalario();
-            filatabla [5]= datos.getBono();
+
             model.addRow(filatabla);
 
         }
@@ -79,9 +76,7 @@ public class Entrada2 extends javax.swing.JFrame {
     private void cargartitulos(){
         model.addColumn("Matricula");
         model.addColumn("Nombre");
-        model.addColumn("Ocupacion");
-        model.addColumn("Salario");
-        model.addColumn("Bono");
+
         
         table.setModel(model);
         
@@ -209,7 +204,7 @@ public class Entrada2 extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

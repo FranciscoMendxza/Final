@@ -50,13 +50,13 @@ public class Conexion {
         
         try{
             conecta();
-            PreparedStatement ps = conexion.prepareStatement("insert into datos (nombre, categoria, ocupacion, salario, bono) values (?, ?, ?, ?, ?)");
+            PreparedStatement ps = conexion.prepareStatement("insert into prueba (nombre, matricula, ocupacion, identificacion, dias, total) values (?, ?, ?, ?, ?, ?)");
             ps.setString(1, datos.getNombre());
-            ps.setString(2, datos.getCategoria());
+            ps.setInt(2, datos.getMatricula());
             ps.setString(3, datos.getOcupacion());
-            ps.setInt(4, datos.getSalario());
-            ps.setInt(5, datos.getBono());
-            
+            ps.setString(4, datos.getIdentificacion());
+            ps.setInt(5, datos.getDias());
+            ps.setInt(6, datos.getTotal());
             ps.execute();
             
         }catch(SQLException ex) {
@@ -74,12 +74,12 @@ public class Conexion {
         try{
             
             conecta();
-            PreparedStatement ps = conexion.prepareStatement("select * from Datos");
+            PreparedStatement ps = conexion.prepareStatement("select * from prueba");
             ResultSet rs = ps.executeQuery();
-            Datos datos;
+            Datos datos = new Datos();
             
             while(rs.next()){
-                datos = new Datos(rs.getString("nombre"),rs.getString("categoria"), rs.getString("ocupacion"), rs.getInt("salario"), rs.getInt("bono"),rs.getInt("matricula"));
+                datos = new Datos(rs.getString("nombre"),rs.getInt("matricula"), rs.getString("ocupacion"), rs.getString("identificacion"), rs.getInt("dias"), rs.getInt("total"));
                 //datos.setNombre(rs.getString("nombre"));
                 listaDatos.add(datos);
             }
@@ -99,16 +99,14 @@ public class Conexion {
         
         try{
             conecta();
-            PreparedStatement ps = conexion.prepareCall("update datos set nombre = ?, categoria = ?, ocupacion = ?, salario = ?, bono = ? where matricula = ?");
+            PreparedStatement ps = conexion.prepareCall("update prueba set nombre = ?, ocupacion = ?, identificacion = ?, dias = ?, total = ? where matricula = ?");
             
             ps.setString(1, datos.getNombre());
-            ps.setString(2, datos.getCategoria());
+            ps.setInt(2, datos.getMatricula());
             ps.setString(3, datos.getOcupacion());
-            ps.setInt(4, datos.getSalario());
-            ps.setInt(5, datos.getBono());
-            
-            ps.setInt(6, datos.getMatricula());
-            
+            ps.setString(4, datos.getIdentificacion());
+            ps.setInt(5, datos.getDias());
+            ps.setInt(6, datos.getTotal());
             ps.executeUpdate();
             
         }catch(SQLException ex) {
@@ -125,7 +123,7 @@ public class Conexion {
         boolean estado = true;
         try{
             conecta();
-            PreparedStatement ps = conexion.prepareStatement("delete from Datos where matricula = ?");
+            PreparedStatement ps = conexion.prepareStatement("delete from prueba where matricula = ?");
             ps.setInt(1, id);
             ps.execute();            
         }catch(SQLException ex){
